@@ -9,7 +9,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_KEY"))  # Nueva sintaxis
 def summarize():
     text = request.json.get('text')
     response = client.chat.completions.create(  # Nueva sintaxis
-        model="gpt-4",
+        model="gpt-3.5-turbo",  # ¡Modelo gratuito!
         messages=[{"role": "user", "content": f"Resume esto en 5 puntos clave:\n{text}"}]
     )
     return jsonify({"summary": response.choices[0].message.content})
