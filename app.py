@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify
-import openai
+from openai import OpenAI
 import os
 
 app = Flask(__name__)
-openai.api_key = os.getenv("OPENAI_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_KEY"))  # Nueva sintaxis
 
 @app.route('/summarize', methods=['POST'])
 def summarize():
     text = request.json.get('text')
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(  # Nueva sintaxis
         model="gpt-4",
         messages=[{"role": "user", "content": f"Resume esto en 5 puntos clave:\n{text}"}]
     )
